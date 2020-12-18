@@ -1,4 +1,113 @@
-<hello name="{{ name }}"></hello>
-<p>
-  Start editing to see some magic happen :)
-</p>
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#">WebSiteName</a>
+    </div>
+    <ul class="nav navbar-nav">
+      <li>
+        <a
+          [ngClass]="{ 'd-none': !isHide }"
+          class="fx-toolbar-link"
+          (click)="showMainVizModel()"
+        >
+          <i class="mdi mdi-plus fx-font-size-16"></i> Add Widget
+        </a>
+
+        <a
+          [ngClass]="{ 'd-none': isHide }"
+          class="fx-toolbar-link"
+          (click)="saveDashboard()"
+        >
+          <i class="mdi mdi-content-save fx-font-size-16"></i> Save
+        </a>
+      </li>
+
+      <li>
+        <a
+          [ngClass]="{ 'd-none': !isHide }"
+          class="fx-toolbar-link"
+          (click)="showwidget()"
+        >
+          <i class="mdi mdi-pencil fx-font-size-16"></i> Edit
+        </a>
+      </li>
+      <li>
+        <div class="dropdown" style="margin-top: 15px;">
+          <a data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <i class="mdi mdi-layers-outline fx-font-size-16"></i>Layouts
+          </a>
+          <!-- <button type="button" class="btn btn-dark dropdown-toggle" id="dropdownMenuIconButton7" >
+          <i class="ti-user"></i>
+        </button> -->
+          <div class="dropdown-menu" aria-labelledby="dropdownMenuIconButton7">
+            <h6 class="dropdown-header">Grid layouts</h6>
+            <!-- <a class="dropdown-item" (click)="updateGrid('1','1')">
+            <i class="mdi mdi-layers-outline fx-font-size-16"></i>Grid 1x1
+          </a> -->
+            <a class="dropdown-item" (click)="updateGrid('2','2')">
+              <i class="mdi mdi-layers-outline fx-font-size-16"></i>Grid 2x2
+            </a>
+            <a class="dropdown-item" (click)="updateGrid('3','3')">
+              <i class="mdi mdi-layers-outline fx-font-size-16"></i>Grid 3x3
+            </a>
+            <a class="dropdown-item" (click)="updateGrid('4','4')">
+              <i class="mdi mdi-layers-outline fx-font-size-16"></i>Grid 4x4
+            </a>
+            <a class="dropdown-item" (click)="updateGrid('5','5')">
+              <i class="mdi mdi-layers-outline fx-font-size-16"></i>Grid 5x5
+            </a>
+            <a class="dropdown-item" (click)="updateGrid('5','4')">
+              <i class="mdi mdi-layers-outline fx-font-size-16"></i>Grid 5x4
+            </a>
+            <a class="dropdown-item" (click)="updateGrid('20','20')">
+              <i class="mdi mdi-layers-outline fx-font-size-16"></i>Customize
+            </a>
+          </div>
+        </div>
+      </li>
+    </ul>
+  </div>
+</nav>
+<div style="height:100vh;width:100vw">
+  <gridster id="gridster" [options]="options">
+    <gridster-item
+      [ngStyle]="{ 'background-color': mainbackgroundColor }"
+      class="hoverWrapper"
+      (mouseover)="gridItemEvent($event, i)"
+      id="gridid_{{ i }}"
+      [item]="item"
+      *ngFor="let item of dashboard; let i = index"
+    >
+      <div style="height: 100%; background-color: white">
+        <div id="hoverShow1" [ngClass]="{ 'd-none': isHide }">
+          <!-- (mousedown)="enabledragresize()" -->
+          <div class="mydiv" style="background-color: #eee; cursor: all-scroll">
+            <div class="box-header">
+              <h3 class="boxh3">Edit Chart</h3>
+              <div class="box-header-btns pull-right">
+                <i
+                  [ngClass]="{ 'd-none': !internal }"
+                  (click)="onEditChartMode(item, i)"
+                  class="mdi mdi-settings hovergray"
+                  style="cursor: pointer; color: #ccc; margin-right: 10px"
+                ></i>
+
+                <i
+                  [ngClass]="{ 'd-none': internal }"
+                  class="fa fa-check-square hovergray"
+                  style="cursor: pointer; color: #ccc; margin-right: 10px"
+                ></i>
+                <i
+                  style="cursor: pointer; color: #ccc"
+                  (mousedown)="removeItem($event, item)"
+                  class="mdi mdi-delete hoverred"
+                ></i>
+              </div>
+            </div>
+          </div>
+        </div>
+        <w-image *ngIf="item.type=='image'" [name]="item.name"></w-image>
+      </div>
+    </gridster-item>
+  </gridster>
+</div>
